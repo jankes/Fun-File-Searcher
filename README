@@ -1,0 +1,47 @@
+A Java program/library to search through text files for a given String.
+
+Implements functionality similar to what text editors do when you press CTRL-F
+
+Requirements:
+To compile and run the code, I'm using Java 6 and JUnit 4. I'm using the Eclipse development environment.
+
+Status:
+This project is still being developed and nothing is solidified yet (including public interfaces).
+In fact, it likely doesn't work yet since almost no testing has been done.
+
+The README will be updated when the state of the project changes.
+
+Current Example Code:
+
+<code>
+
+// get a FileSearcher
+FileSearcherFactory factory = FileSearcherFactory.getInstance();
+FileSearcher searcher = factory.getFileSearcher();
+
+// set up your parameters
+String fileToSearch = "myFile.txt";
+String charsetName = "ASCII";
+String target = "look for this String";
+boolean matchCase = false;
+
+// do the search!
+SearchResult search = null;
+try {
+    search = searcher.searchFile(fileToSearch,charsetName,target,matchCase);
+}
+catch(FileSearcherFailException e) {
+    // some error while trying to search the file
+    return;
+}
+
+// check out the results
+List<FindEntry> finds = search.getFinds();
+for(FindEntry find : finds) {
+    String outMsg = String.format("found our target string on line %d. Starts %d characters from the start of the file",
+                                   find.getLineNum(), find.getIndex()
+                                  );
+    System.out.println(outMsg); 
+}
+
+</code>
