@@ -1,0 +1,12 @@
+*.class
+
+# ignore Eclipse project files
+.project
+.classpath
+.settings/
+
+# don't track the bin path
+bin/
+
+# temporary files due to text editors
+*~
