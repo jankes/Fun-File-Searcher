@@ -8,6 +8,10 @@ class PipeLineFileSearcher implements FileSearcher {
     @Override
     public SearchResult searchFile(String fileName,String charsetName,String searchStr,boolean matchCase) throws FileSearcherFailException {
         
+        if( searchStr.equals("") ) {
+            throw new FileSearcherFailException("cannot search for an empty String");
+        }
+        
         Link<RunStatus> readerToTopLink = new QueueLink<RunStatus>();
         Link<RunStatus> finderToTopLink = new QueueLink<RunStatus>();
         Link<NewDataMsg> readerToFinderLink = new QueueLink<NewDataMsg>();

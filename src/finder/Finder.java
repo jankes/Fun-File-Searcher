@@ -55,6 +55,9 @@ class Finder implements Runnable {
     // newline count in incoming data
     private long mLineNum;
     
+    // byte count within each line in incoming data
+    private long mColNum;
+    
     // byte count in incoming data
     private long mByteNum;
     
@@ -69,6 +72,7 @@ class Finder implements Runnable {
         mMatcher = matchCase ? new ExactCharMatcher() : new IgnoreCaseMatcher();
         mMatchIndex = 0;
         mLineNum = 0;
+        mColNum = 0;
         mByteNum = 0;
     }
     
@@ -80,6 +84,7 @@ class Finder implements Runnable {
             buf.get();
         }
         mByteNum += numBytes;
+        mColNum += numBytes;
     }
     
     // 
@@ -104,7 +109,7 @@ class Finder implements Runnable {
                     if(resList == null) {
                         resList = new LinkedList<FindEntry>();
                     }
-                    resList.add( new FindEntry(mLineNum,mByteNum - mTarget.length() + 1) );
+                    resList.add( new FindEntry(mByteNum - mTarget.length() + 1,mLineNum,mColNum - mTarget.length() + 1) );
                     resetFind();
                 }
             }
@@ -114,6 +119,10 @@ class Finder implements Runnable {
             }
             if( nextChar.equals('\n') ) {
                 mLineNum ++;
+                mColNum = 0;
+            }
+            else {
+                mColNum ++;
             }
             mByteNum ++;
         }

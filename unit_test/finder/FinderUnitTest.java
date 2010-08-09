@@ -64,7 +64,7 @@ public class FinderUnitTest {
         
         // expectations
         List<FindEntry> expectedFinds = new LinkedList<FindEntry>();
-        expectedFinds.add(new FindEntry(0,10));
+        expectedFinds.add(new FindEntry(10,0,10));
         SearchResult expectedResult = new SearchResult(expectedFinds,false);
         
         // see if it worked
