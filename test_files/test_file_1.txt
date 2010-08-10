@@ -1,0 +1,17 @@
+Here is a test File.
+
+It will be used in testing the FileSearcher.
+
+Here are some random words to search for:
+
+Manufacturing
+
+Planning
+
+Label
+
+Teach Affair Knowing alblum doubt 
+
+Chinaberry underpainting caroche bukra 
+
+TENTATION!
