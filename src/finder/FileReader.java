@@ -26,7 +26,7 @@ class FileReader implements Runnable {
     }
     
     private void doChunk(FileChannel channel,long position,long size,boolean isLast) throws IOException {
-        MappedByteBuffer chunk = channel.map(MapMode.READ_ONLY,position,mChunkSize);
+        MappedByteBuffer chunk = channel.map(MapMode.READ_ONLY,position,size);
         chunk.load();
         mLinkNext.send(new NewDataMsg(chunk,isLast));
     }

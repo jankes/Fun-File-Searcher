@@ -8,7 +8,7 @@ import java.util.List;
 public class SearchResult {
     private final List<FindEntry> mFinds;
     
-    SearchResult(List<FindEntry> found,boolean error) {
+    SearchResult(List<FindEntry> found) {
         mFinds = found;
     }
     
@@ -36,5 +36,17 @@ public class SearchResult {
             }
         }
         return true;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("SearchResult with ")
+                                          .append(mFinds.size())
+                                          .append( mFinds.size() == 1 ? " find" : " finds" )
+                                          .append(Character.LINE_SEPARATOR);
+        for(FindEntry find : mFinds) {
+            builder.append( find.toString() ).append(Character.LINE_SEPARATOR);
+        }
+        return builder.toString();
     }
 }

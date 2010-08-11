@@ -34,4 +34,17 @@ public class FindEntry {
         FindEntry otherEntry = (FindEntry)other;
         return mIndex == otherEntry.getIndex() && mLineNum == otherEntry.getLineNum() && mColumnNum == otherEntry.mColumnNum;
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("FindEntry: ")
+               .append("index = ")
+               .append(mIndex)
+               .append(", line = ")
+               .append(mLineNum)
+               .append(", column = ")
+               .append(mColumnNum);
+        return builder.toString();
+    }
 }

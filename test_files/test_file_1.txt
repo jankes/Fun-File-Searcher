@@ -1,4 +1,4 @@
-Here is a test File.
+This is a test File.
 
 It will be used in testing the FileSearcher.
 
@@ -8,9 +8,9 @@ Manufacturing
 
 Planning
 
-Label
+Label camelCaseWord
 
-Teach Affair Knowing alblum doubt 
+Teach Affair Knowing alblum doubt Debut
 
 Chinaberry underpainting caroche bukra 
 

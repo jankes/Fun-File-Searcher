@@ -65,7 +65,7 @@ public class FinderUnitTest {
         // expectations
         List<FindEntry> expectedFinds = new LinkedList<FindEntry>();
         expectedFinds.add(new FindEntry(10,0,10));
-        SearchResult expectedResult = new SearchResult(expectedFinds,false);
+        SearchResult expectedResult = new SearchResult(expectedFinds);
         
         // see if it worked
         Assert.assertEquals(RunStatus.getOkRunStatus(),finderLinkTop.receive());        

@@ -97,11 +97,9 @@ class Finder implements Runnable {
     // start <= in.position() must be true to call this method
     // this method does not modify the position or limit of in
     // returns null if no matches of the target String are found, or a list of find entries containing matches
-    private List<FindEntry> search(CharBuffer in,int start) {
+    private List<FindEntry> search(CharBuffer in) {
         List<FindEntry> resList = null;
-        int positionSave = in.position();
-        in.position(start);
-        while( in.position() < positionSave ) {
+        while( in.hasRemaining() ) {
             Character nextChar = in.get();
             if( mMatcher.doCharsMatch(nextChar,mTarget.charAt(mMatchIndex)) ) {
                 mMatchIndex++;
@@ -141,7 +139,7 @@ class Finder implements Runnable {
         while(true) {
             int start = data.position();
             CoderResult coderRes = mDecoder.decode(data,decodeBuf,false);
-            List<FindEntry> found = search(decodeBuf,start);
+            List<FindEntry> found = search(decodeBuf);
             decodeBuf.clear();
             if(found != null) {
                 findList.addAll( found );
@@ -154,7 +152,7 @@ class Finder implements Runnable {
                 if( dataMsg.isLast() ) {
                     // not considering possible malformed input left in the decoder (not calling mDecoder.decode(data,decodeBuf,true) since
                     // since we cannot match any characters in the malformed input anyway
-                    mLinkNext.send( new SearchResult(findList,false) );
+                    mLinkNext.send( new SearchResult(findList) );
                     mLinkTop.send( RunStatus.getOkRunStatus() );
                     return;
                 }
