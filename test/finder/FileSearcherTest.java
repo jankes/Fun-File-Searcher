@@ -26,11 +26,11 @@ public class FileSearcherTest {
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
-            builder.append("fileName:   ").append(fileName).append(Character.LINE_SEPARATOR)
-                   .append("charset:    ").append(charsetName).append(Character.LINE_SEPARATOR)
-                   .append("target:     ").append(target).append(Character.LINE_SEPARATOR)
-                   .append("match case: ").append(matchCase).append(Character.LINE_SEPARATOR)
-                   .append("expected result: ").append(expectedResult.toString()).append(Character.LINE_SEPARATOR);
+            builder.append("fileName:   ").append(fileName).append('\n')
+                   .append("charset:    ").append(charsetName).append('\n')
+                   .append("target:     ").append(target).append('\n')
+                   .append("match case: ").append(matchCase).append('\n')
+                   .append("expected result: ").append(expectedResult.toString()).append('\n');
             return builder.toString();
         }
     }
@@ -52,11 +52,11 @@ public class FileSearcherTest {
     private List<TestCase> getTestCases() {        
         List<TestCase> testCases = new LinkedList<TestCase>();
         
-        // find the word "Planning" in test_file_1.txt
+        // find the word "It" in test_file_1.txt
         List<FindEntry> expectedFinds = new LinkedList<FindEntry>();
-        expectedFinds.add(new FindEntry(0,0,0));
+        expectedFinds.add(new FindEntry(52,2,0));
         SearchResult expectedResult = new SearchResult(expectedFinds);
-        TestCase case1 = new TestCase("test_files/test_file_1.txt","ASCII","Planning",true,expectedResult);        
+        TestCase case1 = new TestCase("test_files/test_file_1.txt","ASCII","It",true,expectedResult);        
         testCases.add(case1);
         
         return testCases;
@@ -68,10 +68,10 @@ public class FileSearcherTest {
         try {
             SearchResult result = searcher.searchFile(test.fileName,test.charsetName,test.target,test.matchCase);
             if( !result.equals(test.expectedResult) ) {
-                StringBuilder builder = new StringBuilder("SearchResult not as expected").append(Character.LINE_SEPARATOR);
-                builder.append("expected: ").append(Character.LINE_SEPARATOR)
-                       .append(test.expectedResult.toString()).append(Character.LINE_SEPARATOR)
-                       .append("instead got: ").append(Character.LINE_SEPARATOR)
+                StringBuilder builder = new StringBuilder("SearchResult not as expected").append('\n');
+                builder.append("expected: ").append('\n')
+                       .append(test.expectedResult.toString()).append('\n')
+                       .append("instead got: ").append('\n')
                        .append(result.toString());
                 return new TestResult(false,builder.toString(),null);
             }

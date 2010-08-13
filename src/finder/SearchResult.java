@@ -43,9 +43,9 @@ public class SearchResult {
         StringBuilder builder = new StringBuilder("SearchResult with ")
                                           .append(mFinds.size())
                                           .append( mFinds.size() == 1 ? " find" : " finds" )
-                                          .append(Character.LINE_SEPARATOR);
+                                          .append('\n');
         for(FindEntry find : mFinds) {
-            builder.append( find.toString() ).append(Character.LINE_SEPARATOR);
+            builder.append( find.toString() ).append('\n');
         }
         return builder.toString();
     }

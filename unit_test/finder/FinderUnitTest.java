@@ -38,12 +38,13 @@ public class FinderUnitTest {
     // test Finder always sends to top and next 
     
     
+    
     @Test()
     public void testSimpleFind() {
         
         // start with a string to search, get the data messages
         String testStr = "Here is a String to search";
-        List<NewDataMsg> dataMsgs = getMsgs(testStr,"ASCII",testStr.length() / 3);
+        List<NewDataMsg> dataMsgs = getMsgs(testStr,"ASCII",testStr.length() / 3 );
         
         // create a dummy link that will return these messages when recieve is called
         // these will be the messages seen by the finder

@@ -93,11 +93,11 @@ class Finder implements Runnable {
     }
         
     // searches the given CharBuffer for target string
-    // specifically, searches on the range [ start , in.position() )
-    // start <= in.position() must be true to call this method
-    // this method does not modify the position or limit of in
+    // the characters between 0 and in.position() will be searched
+    // after calling this method, in.position() == in.limit() will be true
     // returns null if no matches of the target String are found, or a list of find entries containing matches
     private List<FindEntry> search(CharBuffer in) {
+        in.flip();
         List<FindEntry> resList = null;
         while( in.hasRemaining() ) {
             Character nextChar = in.get();
@@ -137,7 +137,6 @@ class Finder implements Runnable {
         NewDataMsg dataMsg = mLinkIn.receive();
         ByteBuffer data = dataMsg.getData();
         while(true) {
-            int start = data.position();
             CoderResult coderRes = mDecoder.decode(data,decodeBuf,false);
             List<FindEntry> found = search(decodeBuf);
             decodeBuf.clear();

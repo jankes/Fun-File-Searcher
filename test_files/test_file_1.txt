@@ -1,4 +1,4 @@
-This is a test File.
+This is a test file for use in end to end testing.
 
 It will be used in testing the FileSearcher.
 
