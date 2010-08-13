@@ -6,8 +6,8 @@ Requirements:
 To compile and run the code, I'm using Java 6 and JUnit 4. I'm using the Eclipse development environment.
 
 Status:
-This project is still being developed and nothing is solidified yet (including public interfaces).
-In fact, it likely doesn't work yet since almost no testing has been done.
+This project is still being developed, and nothing is certain to work.
+Only minimal testing has been done so far and more will be comming soon.
 
 The README will be updated when the state of the project changes.
 
