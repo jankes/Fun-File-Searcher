@@ -1,11 +1,8 @@
 package finder;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 class FileReader implements Runnable {
@@ -25,7 +22,13 @@ class FileReader implements Runnable {
         mChunkSize = chunkSize;
     }
     
-    private void doChunk(FileChannel channel,long position,long size,boolean isLast) throws IOException {
+    // gets an implementor of FileReadingChannel interface
+    // protected to make endo-testing the FileReader possible
+    protected FileReadingChannel getFileReadingChannel() throws IOException {
+        return new FileChannelFileReadingChannel(mReadFile);
+    }
+    
+    private void doChunk(FileReadingChannel channel,long position,long size,boolean isLast) throws IOException {
         MappedByteBuffer chunk = channel.map(MapMode.READ_ONLY,position,size);
         chunk.load();
         mLinkNext.send(new NewDataMsg(chunk,isLast));
@@ -36,8 +39,8 @@ class FileReader implements Runnable {
         mLinkNext.send(new NewDataMsg(dummy,isLast));
     }
     
-    // if successful == false, then except must not be null
-    // if successful == true, except can be null
+    // if successful == false, then parameter except must not be null
+    // if successful == true, parameter except can be null
     private void sendRunStatus(boolean successful,Exception except) {
         if(successful) {
             mLinkTop.send( RunStatus.getOkRunStatus() );
@@ -53,7 +56,7 @@ class FileReader implements Runnable {
         boolean success = false;
         Exception except = null;
         try {
-            FileChannel channel = new FileInputStream(new File(mReadFile)).getChannel();
+            FileReadingChannel channel = getFileReadingChannel();
             long numWholeChunks = channel.size() / mChunkSize;
             boolean doPartialChunk = (channel.size() % mChunkSize) != 0;
             int position = 0;
