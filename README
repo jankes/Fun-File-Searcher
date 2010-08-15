@@ -6,10 +6,9 @@ Requirements:
 To compile and run the code, I'm using Java 6 and JUnit 4. I'm using the Eclipse development environment.
 
 Status:
-This project is still being developed, and nothing is certain to work.
-Only minimal testing has been done so far and more will be comming soon.
+Basic searching/finding seems to be working, although testing is still not yet complete.
 
-The README will be updated when the state of the project changes.
+This README will we updated as the project as the project moves forward.
 
 Current Example Code:
 
