@@ -5,6 +5,7 @@ import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 
+// end to end test of the FileSearcher
 public class FileSearcherTest {
     
     // container class for the parameters to pass to the FileSearcher, and expected result of the search
@@ -49,7 +50,7 @@ public class FileSearcherTest {
         }
     }
     
-    private List<TestCase> getTestCases() {        
+    private List<TestCase> getTestCases() {
         List<TestCase> testCases = new LinkedList<TestCase>();
         
         // find the word "It" in test_file_1.txt
@@ -58,6 +59,8 @@ public class FileSearcherTest {
         SearchResult expectedResult = new SearchResult(expectedFinds);
         TestCase case1 = new TestCase("test_files/test_file_1.txt","ASCII","It",true,expectedResult);        
         testCases.add(case1);
+        
+        // TODO: add more test cases here 
         
         return testCases;
     }
