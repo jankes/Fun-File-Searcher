@@ -64,6 +64,12 @@ public class FinderUnitTest {
         Assert.assertEquals(expectedResult,linkNext.getSent().remove());
     }
     
+    // convevience method
+    private SearchResult createSearchResultWithNoEntries() {
+        List<FindEntry> entryList = new LinkedList<FindEntry>();
+        return new SearchResult(entryList);
+    }
+    
     // convenience method
     private SearchResult createSearchResultWithOneEntry(int index,int lineNum,int colNum) {
         FindEntry entry = new FindEntry(index,lineNum,colNum);
@@ -79,6 +85,26 @@ public class FinderUnitTest {
             entryList.add(entry);
         }
         return new SearchResult(entryList);
+    }
+    
+    private void doFind_NoMatch_MatchCase(int numParts) {
+        String searchStr = "The quick brown fox jumped over the lazy dog";
+        if( numParts > searchStr.length() ) {
+            numParts = searchStr.length();
+        }
+        SearchResult expectedResult = createSearchResultWithNoEntries();
+        doTestCase(searchStr,"ASCII",numParts,"cat",true,expectedResult);
+        doTestCase(searchStr,"ASCII",numParts,"Brown",true,expectedResult);
+    }
+    
+    private void doFind_NoMatch_DontMatchCase(int numParts) {
+        String searchStr = "The quick brown fox jumped over the lazy dog";
+        if( numParts > searchStr.length() ) {
+            numParts = searchStr.length();
+        }
+        SearchResult expectedResult = createSearchResultWithNoEntries();
+        doTestCase(searchStr,"ASCII",numParts,"cat",false,expectedResult);
+        doTestCase(searchStr,"ASCII",numParts,"dogs",false,expectedResult);
     }
     
     // 
@@ -145,12 +171,36 @@ public class FinderUnitTest {
     }
     
     @Test
+    public void testFind_NoMatch_OneMsg_MatchCase() {
+        doFind_NoMatch_MatchCase(1);
+    }
+    
+    @Test
+    public void testFind_NoMatch_MultiMsg_MatchCase() {
+        doFind_NoMatch_MatchCase(2);
+        doFind_NoMatch_MatchCase(3);
+        doFind_NoMatch_MatchCase(7);
+    }
+    
+    @Test
+    public void testFind_NoMatch_OneMsg_DontMatchCase() {
+        doFind_NoMatch_DontMatchCase(1);
+    }
+    
+    @Test
+    public void testFind_NoMatch_MultiMsg_DontMatchCase() {
+        doFind_NoMatch_DontMatchCase(3);
+        doFind_NoMatch_DontMatchCase(5);
+        doFind_NoMatch_DontMatchCase(11);
+    }
+    
+    @Test
     public void testFind_SingleMatch_OneMsg_MatchCase() {
         doFind_SingleMatch_MatchCase(1);
     }
     
     @Test
-    public void testFind_SingleMatch_MultiMsg_CaseMatch() {
+    public void testFind_SingleMatch_MultiMsg_MatchCase() {
         doFind_SingleMatch_MatchCase(2);
         doFind_SingleMatch_MatchCase(3);
         doFind_SingleMatch_MatchCase(10);

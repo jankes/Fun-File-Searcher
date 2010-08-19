@@ -2,7 +2,6 @@ package finder;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel.MapMode;
 
 class FileReader implements Runnable {
@@ -29,9 +28,9 @@ class FileReader implements Runnable {
     }
     
     private void doChunk(FileReadingChannel channel,long position,long size,boolean isLast) throws IOException {
-        MappedByteBuffer chunk = channel.map(MapMode.READ_ONLY,position,size);
+        MemoryMappedBuffer chunk = channel.map(MapMode.READ_ONLY,position,size);
         chunk.load();
-        mLinkNext.send(new NewDataMsg(chunk,isLast));
+        mLinkNext.send(new NewDataMsg(chunk.getByteBuffer(),isLast));
     }
     
     private void doDummyChunk(boolean isLast) {

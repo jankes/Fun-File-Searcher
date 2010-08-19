@@ -13,8 +13,10 @@ class DummyLink<T> implements Link<T> {
     // create a new DummyLink loaded with the queue for receiving
     DummyLink(Queue<T> receiveList) {
         mOutput = new LinkedList<T>();
-        for(T t : receiveList) {
-            mOutput.add(t);
+        if(receiveList != null) {
+            for(T t : receiveList) {
+                mOutput.add(t);
+            }
         }
         mSent = new LinkedList<T>();
         mReceived = new LinkedList<T>();

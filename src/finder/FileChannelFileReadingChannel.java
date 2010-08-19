@@ -3,7 +3,6 @@ package finder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
@@ -22,8 +21,8 @@ class FileChannelFileReadingChannel implements FileReadingChannel {
     }
 
     @Override
-    public MappedByteBuffer map(MapMode mapMode, long position, long size) throws IOException {
-        return mChannel.map(mapMode,position,size);
+    public MemoryMappedBuffer map(MapMode mapMode, long position, long size) throws IOException {
+        return new MappedByteBufferMemoryMappedBuffer(mChannel.map(mapMode,position,size));
     }
 
     @Override

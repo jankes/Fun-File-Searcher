@@ -1,11 +1,16 @@
 package finder;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 
-// end to end test of the FileSearcher
+//
+// End to end test of the FileSearcher
+// Tests finding Strings in test_files/test_file1.txt
+//
+
 public class FileSearcherTest {
     
     // container class for the parameters to pass to the FileSearcher, and expected result of the search
@@ -50,17 +55,24 @@ public class FileSearcherTest {
         }
     }
     
+    // convenience method
+    private TestCase createTestCase(FindEntry[] expectedFinds,String target,boolean matchCase) {
+        return new TestCase("test_files/test_file_1.txt","ASCII",target,matchCase, new SearchResult(Arrays.asList(expectedFinds)));
+    }
+    
     private List<TestCase> getTestCases() {
         List<TestCase> testCases = new LinkedList<TestCase>();
         
-        // find the word "It" in test_file_1.txt
-        List<FindEntry> expectedFinds = new LinkedList<FindEntry>();
-        expectedFinds.add(new FindEntry(52,2,0));
-        SearchResult expectedResult = new SearchResult(expectedFinds);
-        TestCase case1 = new TestCase("test_files/test_file_1.txt","ASCII","It",true,expectedResult);        
-        testCases.add(case1);
+        // find "It"
+        testCases.add( createTestCase(new FindEntry[] {new FindEntry(52,2,0)},"It",true ) );
         
-        // TODO: add more test cases here 
+        // find "This"
+        testCases.add( createTestCase(new FindEntry[] {new FindEntry(0,0,0)},"This",true ) );
+        
+        // find "FileSearcher"
+        testCases.add( createTestCase(new FindEntry[] {new FindEntry(83,2,31)},"filesearcher",false ) );
+        
+        // TODO: add more test cases
         
         return testCases;
     }
